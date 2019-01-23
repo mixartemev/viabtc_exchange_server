@@ -1,6 +1,7 @@
 version: '3.4'
 services:
 
+####################### STORAGE ######################
   mysql:
     build: mysql
     image: bitlum/exchange-mysql
@@ -10,7 +11,7 @@ services:
       options:
         max-size: 10m
     volumes:
-      - /var/bitlum/exchange/mysql/lib:/var/lib/mysql
+      - '/var/bitlum/exchange/mysql/lib:/var/lib/mysql'
     networks:
       exchange_net:
         ipv4_address: 192.168.18.10
@@ -24,8 +25,8 @@ services:
       options:
         max-size: 10m
     volumes:
-      - /var/bitlum/exchange/kafka/logs:/var/log/kafka
-      - /var/bitlum/exchange/zookeeper/logs:/var/log/zookeeper
+      - '/var/bitlum/exchange/kafka/logs:/var/log/kafka'
+      - '/var/bitlum/exchange/zookeeper/logs:/var/log/zookeeper'
     networks:
       exchange_net:
         ipv4_address: 192.168.18.20
@@ -42,17 +43,16 @@ services:
       options:
         max-size: 10m
     volumes:
-      - /var/bitlum/exchange/redis/master/lib:/var/lib/redis
+      - '/var/bitlum/exchange/redis/master/lib:/var/lib/redis'
     networks:
       exchange_net:
         ipv4_address: 192.168.18.36
-
   redis-replica-1:
     build:
       context: redis
     environment:
       PORT: 6382
-      SLAVEOF: "redis-master 6381"
+      SLAVEOF: redis-master 6381
     image: bitlum/exchange-redis
     container_name: exchange_redis_replica_1
     restart: always
@@ -62,17 +62,16 @@ services:
     depends_on:
       - redis-master
     volumes:
-      - /var/bitlum/exchange/redis/replica1/lib:/var/lib/redis
+      - '/var/bitlum/exchange/redis/replica1/lib:/var/lib/redis'
     networks:
       exchange_net:
         ipv4_address: 192.168.18.37
-
   redis-replica-2:
     build:
       context: redis
     environment:
       PORT: 6383
-      SLAVEOF: "redis-master 6381"
+      SLAVEOF: redis-master 6381
     image: bitlum/exchange-redis
     container_name: exchange_redis_replica_2
     restart: always
@@ -82,11 +81,13 @@ services:
     depends_on:
       - redis-master
     volumes:
-      - /var/bitlum/exchange/redis/replica2/lib:/var/lib/redis
+      - '/var/bitlum/exchange/redis/replica2/lib:/var/lib/redis'
     networks:
       exchange_net:
         ipv4_address: 192.168.18.38
+###################### !STORAGE ######################
 
+####################### SERVICE ######################
   sentinel1:
     build:
       context: sentinel
@@ -106,7 +107,6 @@ services:
     networks:
       exchange_net:
         ipv4_address: 192.168.18.31
-
   sentinel2:
     build:
       context: sentinel
@@ -127,7 +127,6 @@ services:
     networks:
       exchange_net:
         ipv4_address: 192.168.18.32
-
   sentinel3:
     build:
       context: sentinel
@@ -149,7 +148,6 @@ services:
     networks:
       exchange_net:
         ipv4_address: 192.168.18.33
-
   alertcenter:
     build:
       context: ..
@@ -166,11 +164,10 @@ services:
       - sentinel2
       - sentinel3
     volumes:
-      - /var/bitlum/exchange/trade/alertcenter/log:/var/log/trade
+      - '/var/bitlum/exchange/trade/alertcenter/log:/var/log/trade'
     networks:
       exchange_net:
         ipv4_address: 192.168.18.41
-
   matchengine:
     build:
       context: ..
@@ -187,11 +184,10 @@ services:
       - kafka
       - alertcenter
     volumes:
-      - /var/bitlum/exchange/trade/matchengine/log:/var/log/trade
+      - '/var/bitlum/exchange/trade/matchengine/log:/var/log/trade'
     networks:
       exchange_net:
         ipv4_address: 192.168.18.42
-
   marketprice:
     build:
       context: ..
@@ -210,11 +206,10 @@ services:
       - sentinel3
       - alertcenter
     volumes:
-      - /var/bitlum/exchange/trade/marketprice/log:/var/log/trade
+      - '/var/bitlum/exchange/trade/marketprice/log:/var/log/trade'
     networks:
       exchange_net:
         ipv4_address: 192.168.18.43
-
   readhistory:
     build:
       context: ..
@@ -230,11 +225,13 @@ services:
       - mysql
       - alertcenter
     volumes:
-      - /var/bitlum/exchange/trade/readhistory/log:/var/log/trade
+      - '/var/bitlum/exchange/trade/readhistory/log:/var/log/trade'
     networks:
       exchange_net:
         ipv4_address: 192.168.18.44
+###################### !SERVICE ######################
 
+####################### ACCESS #######################
   accesshttp:
     build:
       context: ..
@@ -252,10 +249,10 @@ services:
       - marketprice
       - readhistory
     volumes:
-      - /var/bitlum/exchange/trade/accesshttp/log:/var/log/trade
+      - '/var/bitlum/exchange/trade/accesshttp/log:/var/log/trade'
     ports:
-      - "8080:8080"
-      - "8081:8081"
+      - '8080:8080'
+      - '8081:8081'
     networks:
       exchange_net:
         ipv4_address: 192.168.18.45
@@ -278,13 +275,14 @@ services:
       - marketprice
       - readhistory
     volumes:
-      - /var/bitlum/exchange/trade/accessws/log:/var/log/trade
+      - '/var/bitlum/exchange/trade/accessws/log:/var/log/trade'
     ports:
-      - "8090:8090"
-      - "8091:8091"
+      - '8090:8090'
+      - '8091:8091'
     networks:
       exchange_net:
         ipv4_address: 192.168.18.46
+###################### !ACCESS #######################
 
   cli:
     build: cli
