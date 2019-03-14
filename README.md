@@ -2,7 +2,7 @@
 
 Added docker and docker-compose to ViaBTC Exchange engine
 
-[<img src="https://raw.githubusercontent.com/morejust/foundation/master/madebymorejust.png" width="100">](https://morejust.foundation/?from=pravda.contracts)
+[<img src="https://raw.githubusercontent.com/morejust/foundation/master/madebymorejust.png" width="100">](https://morejust.foundation/?from=viabtc_exchange_server)
 
 ViaBTC Exchange Server is a trading backend with high-speed performance, designed for cryptocurrency exchanges. It can support up to 10000 trades every second and real-time user/market data notification through websocket.
 
@@ -99,4 +99,4 @@ Example response: `{"code": 0, "message": null, "data": {"user_id": 1}}`
 
 ## Produced my morejust foundation
 
-[<img src="https://raw.githubusercontent.com/morejust/foundation/master/madebymorejust.png" width="100">](https://morejust.foundation/?from=pravda.contracts)
+[<img src="https://raw.githubusercontent.com/morejust/foundation/master/madebymorejust.png" width="100">](https://morejust.foundation/?from=viabtc_exchange_server)
