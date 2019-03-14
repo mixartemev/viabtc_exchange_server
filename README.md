@@ -1,5 +1,9 @@
 # ViaBTC Exchange Server
 
+Added docker and docker-compose to ViaBTC Exchange engine
+
+[<img src="https://raw.githubusercontent.com/morejust/foundation/master/madebymorejust.png" width="100">](https://morejust.foundation/?from=pravda.contracts)
+
 ViaBTC Exchange Server is a trading backend with high-speed performance, designed for cryptocurrency exchanges. It can support up to 10000 trades every second and real-time user/market data notification through websocket.
 
 ## Architecture
@@ -93,9 +97,6 @@ The internal authorization endpoint is defined by the `auth_url` setting in the 
 
 Example response: `{"code": 0, "message": null, "data": {"user_id": 1}}`
 
-## Donation
+## Produced my morejust foundation
 
-* BTC: 14x3GrEoMLituT6vF2wcEbqMAxCvt2724s
-* BCC: 1364ZurPv8uTgnFr1uqowJDFF15aNFemkf
-* ETH: 0xA2913166AE0689C07fCB5C423559239bB2814b6D
-
+[<img src="https://raw.githubusercontent.com/morejust/foundation/master/madebymorejust.png" width="100">](https://morejust.foundation/?from=pravda.contracts)
